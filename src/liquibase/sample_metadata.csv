@@ -1,0 +1,46 @@
+url,data_type,data_value
+https://www.example.com,header,This is the main page header
+https://www.example.com/about,footer,Copyright 2024, Example Company
+https://www.example.com/products,title,Our Featured Products
+https://www.example.com/products/laptops,description,Browse our wide selection of laptops
+https://www.example.com/products/laptops/12345,price,$1,299.99
+https://www.example.com/contact,phone_number,+1 (555) 555-5555
+https://www.example.com/blog,post_title,5 Tips for Choosing the Right Laptop
+https://www.example.com/blog/post_title,author,John Doe
+https://www.example.com/news,article_title,Company Announces New Product Line
+https://www.example.com/news/article_title,date,2024-04-26
+https://www.example.com/images/banner.jpg,image_alt_text,Company Logo Banner
+https://www.example.com/videos/intro.mp4,video_caption,Welcome to Example Company
+https://www.example.com/user/profile,user_id,123456
+https://www.example.com/user/profile,username,johndoe123
+https://www.example.com/search,search_term,laptops under $1000
+https://www.example.com/search,search_result_count,25 products found
+https://www.example.com/cart,item_name,Wireless Mouse
+https://www.example.com/cart,item_quantity,1
+https://www.example.com/cart,item_price,$29.99
+https://www.example.com/reviews/product/12345,rating,5 stars
+https://www.example.com/reviews/product/12345,review_text,Excellent product, would recommend!
+https://www.example.com/help,faq_question,How do I return an item?
+https://www.example.com/help,faq_answer,Visit our returns page for details
+https://www.example.com/terms,terms_of_service,Legal terms and conditions
+https://www.example.com/privacy,privacy_policy,Our commitment to your privacy
+https://www.example.com/social/facebook,social_media_handle,@examplecompany
+https://www.example.com/social/twitter,social_media_handle,@example_com
+https://www.example.com/events,event_name,Product Launch Event
+https://www.example.com/events,event_date,2024-05-15
+https://www.example.com/location,address,123 Main Street, Anytown, USA
+https://www.example.com/location,city,Anytown
+https://www.example.com/location,state,CA
+https://www.example.com/location,zip_code,12345
+https://www.example.com/404,error_message,Page not found
+https://www.example.com/internal-resource,not_public,This resource is not publicly accessible
+https://www.example.com/restricted/area,access_level,Admin only
+https://www.example.com/important-data,data_type,sensitive
+https://www.example.com/important-data,data_value,This is some confidential information
+https://example.com (no https),warning,This website is not using secure HTTPS protocol
+https://www.example.com/expired-promotion,promotion_code,SUMMER10 (expired)
+https://www.example.com/out-of-stock,inventory_status,Out of stock
+https://www.example.com/user-generated/content/1234,content_type,Image
+https://www.example.com/user-generated/content/1234,content_url,https://.../user_image.jpg
+https://www.example.com/user-generated/content/5678,content_type,Review
+https://www.example.com/user-generated/content/5678,content_text,Great product

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>hollow-poc</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>hollow-poc</name>
+    <description>hollow-poc</description>
+
+    <properties>
+        <hollow.version>7.1.7</hollow.version>
+        <aws.version>1.12.353</aws.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.netflix.hollow</groupId>
+            <artifactId>hollow</artifactId>
+            <version>${hollow.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netflix.hollow</groupId>
+            <artifactId>hollow-diff-ui</artifactId>
+            <version>${hollow.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netflix.hollow</groupId>
+            <artifactId>hollow-explorer-ui</artifactId>
+            <version>${hollow.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>${aws.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-dynamodb</artifactId>
+            <version>${aws.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.10.v20180503</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>3.2.5</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.igorperikov</groupId>
+                <artifactId>hollow-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <apiClassName>MovieAPI</apiClassName>
+                    <apiPackageName>hollow.consumer.api.generated</apiPackageName>
+                    <packagesToScan>hollow.producer.datamodel</packagesToScan>
+                    <!-- <useHollowPrimitiveTypes>true</useHollowPrimitiveTypes>-->
+                    <!-- <useVerboseToString>true</useVerboseToString>-->
+                    <!-- <parameterizeAllClassNames></parameterizeAllClassNames>-->
+                    <!-- <useAggressiveSubstitutions></useAggressiveSubstitutions>-->
+                    <!-- <useBooleanFieldErgonomics></useBooleanFieldErgonomics>-->
+                    <!-- <reservePrimaryKeyIndexForTypeWithPrimaryKey></reservePrimaryKeyIndexForTypeWithPrimaryKey>-->
+                    <!-- <useErgonomicShortcuts></useErgonomicShortcuts>-->
+                    <!-- <usePackageGrouping></usePackageGrouping>-->
+                    <!-- <restrictApiToFieldType></restrictApiToFieldType>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-as-project-sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.github.deweyjose</groupId>
+                <artifactId>graphqlcodegen-maven-plugin</artifactId>
+                <version>1.50</version>
+                <executions>
+                    <execution>
+                        <id>dgs-codegen</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaPaths>
+                                <param>src/main/resources/graphql-client</param>
+                            </schemaPaths>
+                            <packageName>com.example.hollowpoc.codegen</packageName>
+                            <addGeneratedAnnotation>true</addGeneratedAnnotation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.24.0</version> <configuration>
+                <propertyFile>src/liquibase/liquibase.properties</propertyFile>
+            </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-dgs-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

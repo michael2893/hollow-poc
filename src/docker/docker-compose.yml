@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  app:
+    image: openjdk:17-slim
+    container_name: spring-boot-app
+    volumes:
+      - ./your-application.jar:/app/your-application.jar
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=michael_app
+      - DB_USER=user
+      - DB_PASSWORD=pw1234
+    depends_on:
+      - database
+
+  database:
+    image: postgres:16.2-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: sample_pg_sql
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pw1234
+    ports:
+      - "5432:5432"
